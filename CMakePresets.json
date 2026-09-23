@@ -1,0 +1,42 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 21, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": { "CMAKE_EXPORT_COMPILE_COMMANDS": "ON" }
+    },
+    {
+      "name": "release",
+      "inherits": "base",
+      "displayName": "Release (MSVC, /W4 /WX)",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+    },
+    {
+      "name": "debug",
+      "inherits": "base",
+      "displayName": "Debug (MSVC, /W4 /WX)",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+    },
+    {
+      "name": "asan",
+      "inherits": "base",
+      "displayName": "Debug + AddressSanitizer",
+      "description": "Requires a developer prompt whose Visual Studio installation ships the MSVC AddressSanitizer runtime (vcasan.lib / vcasand.lib). Leak detection is not supported by this platform.",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug", "LINKOBS_SANITIZE": "address" }
+    }
+  ],
+  "buildPresets": [
+    { "name": "release", "configurePreset": "release" },
+    { "name": "debug", "configurePreset": "debug" },
+    { "name": "asan", "configurePreset": "asan" }
+  ],
+  "testPresets": [
+    { "name": "release", "configurePreset": "release", "output": { "outputOnFailure": true } },
+    { "name": "debug", "configurePreset": "debug", "output": { "outputOnFailure": true } },
+    { "name": "asan", "configurePreset": "asan", "output": { "outputOnFailure": true } }
+  ]
+}
