@@ -1,6 +1,6 @@
 # Link Observatory
 
-A standalone, vendor neutral Fabric OS runtime for observing link health,
+A standalone, vendor-neutral runtime for observing link health,
 utilization, errors, degradation and transitions, and for interpreting them
 historically.
 
